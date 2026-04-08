@@ -11,5 +11,10 @@ sealed class Route: NavKey {
     data object FavoritesScreen: Route()
 
     @Serializable
-    data object DetailScreen: Route()
+    data object SettingsScreen: Route()
+}
+
+sealed class ListNestedRoute: NavKey {
+    @Serializable data object MainList: ListNestedRoute()
+    @Serializable data object Detail: ListNestedRoute()
 }
