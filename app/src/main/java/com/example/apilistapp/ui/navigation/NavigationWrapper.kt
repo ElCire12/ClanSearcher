@@ -12,7 +12,6 @@ import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.ui.NavDisplay
 import com.example.apilistapp.ui.screens.favorites.FavoritesScreen
-import com.example.apilistapp.ui.screens.list.ListScreen
 import com.example.apilistapp.ui.screens.settings.SettingsScreen
 
 

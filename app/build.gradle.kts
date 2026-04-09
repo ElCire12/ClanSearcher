@@ -66,4 +66,8 @@ dependencies {
     implementation(libs.logging.interceptor)
     //ViewModel
     implementation(libs.androidx.lifecycle.viewmodel.compose)
+
+    //Cargar imagenes web
+    implementation(libs.coil.compose)
+
 }
