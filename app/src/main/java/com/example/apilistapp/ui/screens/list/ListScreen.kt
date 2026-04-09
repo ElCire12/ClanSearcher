@@ -83,9 +83,9 @@ fun ClanItem(clan: Clan) {
             modifier = Modifier.padding(horizontal = 20.dp)
         ) {
             AsyncImage(
-                model = "${clan.badgeUrls.large}",
-                contentDescription = "Descripción descriptiva",
-                modifier = Modifier.size(50.dp)
+                model = clan.badgeUrls.large,
+                contentDescription = "Imagen clan",
+                modifier = Modifier.size(50.dp),
             )
             Spacer(Modifier.size(30.dp))
             Text(clan.name, fontSize = 28.sp, fontWeight = FontWeight.Bold)
