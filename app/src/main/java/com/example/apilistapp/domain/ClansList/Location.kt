@@ -1,4 +1,4 @@
-package com.example.apilistapp.domain
+package com.example.apilistapp.domain.ClansList
 
 data class Location(
     val countryCode: String,

@@ -1,4 +1,4 @@
-package com.example.apilistapp.domain
+package com.example.apilistapp.domain.ClanInfo
 
 data class CapitalLeague(
     val id: Int,

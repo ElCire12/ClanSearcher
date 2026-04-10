@@ -1,6 +1,7 @@
 package com.example.apilistapp.ui.screens.list
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -30,14 +31,15 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
-import com.example.apilistapp.domain.Clan
+import com.example.apilistapp.domain.ClansList.Clan
 
 @Composable
-fun ListScreen(navigate: () -> Unit) {
+fun ListScreen(navigateToDetail: (String) -> Unit) {
     var text by remember { mutableStateOf("") }
 
     val viewModel: ClansListViewModel = viewModel()
     val clans by viewModel.clans.collectAsStateWithLifecycle()
+
 
     Column(
         modifier = Modifier
@@ -55,24 +57,20 @@ fun ListScreen(navigate: () -> Unit) {
 
         LazyColumn(modifier = Modifier.fillMaxSize()) {
             items(clans) { clan ->
-                ClanItem(clan)
+                ClanItem(clan, navigateToDetail)
             }
         }
 
         Spacer(modifier = Modifier.height(16.dp))
-        // Un botón simulando que hacemos clic en un elemento de la lista
-        Button(onClick = { navigate() }) {
-            Text("Ir a Detalles")
-        }
     }
 }
 
 @Composable
-fun ClanItem(clan: Clan) {
+fun ClanItem(clan: Clan, navigateToDetail: (String) -> Unit) {
     Card(
         border = BorderStroke(2.dp, Color.LightGray),
         modifier = Modifier.fillMaxWidth()
-//                    .clickable { navigateToDetail(clan.url) }
+            .clickable { navigateToDetail(clan.tag) }
     ) {
         Row(
             modifier = Modifier.padding(horizontal = 20.dp)

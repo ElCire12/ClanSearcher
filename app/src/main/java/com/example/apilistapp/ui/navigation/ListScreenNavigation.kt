@@ -17,11 +17,18 @@ fun ListNavigation() {
         entryProvider = entryProvider {
 
             entry<ListNestedRoute.MainList> {
-                ListScreen(navigate = { listBackStack.add(ListNestedRoute.Detail) })
+                ListScreen(
+                    navigateToDetail = { tagClicado ->
+                        listBackStack.add(ListNestedRoute.Detail(tagClicado))
+                    }
+                )
             }
 
-            entry<ListNestedRoute.Detail> {
-                DetailScreen(navigateBack = { listBackStack.removeLastOrNull() })
+            entry<ListNestedRoute.Detail> { nestedRoute ->
+                DetailScreen(
+                    clanTag = nestedRoute.clanTag,
+                    navigateBack = { listBackStack.removeLastOrNull() }
+                )
             }
         }
     )

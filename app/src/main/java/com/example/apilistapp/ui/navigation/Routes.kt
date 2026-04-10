@@ -16,5 +16,5 @@ sealed class Route: NavKey {
 
 sealed class ListNestedRoute: NavKey {
     @Serializable data object MainList: ListNestedRoute()
-    @Serializable data object Detail: ListNestedRoute()
-}
+    @Serializable
+    data class Detail(val clanTag: String) : ListNestedRoute()}

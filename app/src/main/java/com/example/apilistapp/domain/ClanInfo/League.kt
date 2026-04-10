@@ -1,6 +1,6 @@
-package com.example.apilistapp.domain
+package com.example.apilistapp.domain.ClanInfo
 
-data class Label(
+data class League(
     val iconUrls: IconUrls,
     val id: Int,
     val name: String

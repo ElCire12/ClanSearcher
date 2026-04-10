@@ -1,8 +1,8 @@
-package com.example.apilistapp.domain
+package com.example.apilistapp.domain.ClansList
 
 import com.google.gson.annotations.SerializedName
 
-data class ClansResponse(
+data class ClansList(
     @SerializedName("items")
     val clans: List<Clan>,
     val paging: Paging

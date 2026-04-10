@@ -2,7 +2,7 @@ package com.example.apilistapp.data.mapper
 
 import com.example.apilistapp.data.local.entity.SWCharacterEntity
 import com.example.apilistapp.data.remote.dto.SWCharacterDto
-import com.example.apilistapp.domain.SWCharacter
+import com.example.apilistapp.domain.ClansList.SWCharacter
 
 fun SWCharacterDto.toDomain(): SWCharacter {
     val id = url.trimEnd('/').split('/').last().toIntOrNull() ?: 0

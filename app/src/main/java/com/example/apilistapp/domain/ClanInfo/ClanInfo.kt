@@ -1,0 +1,30 @@
+package com.example.apilistapp.domain.ClanInfo
+
+data class ClanInfo(
+    val badgeUrls: BadgeUrls,
+    val capitalLeague: CapitalLeague,
+    val clanBuilderBasePoints: Int,
+    val clanCapital: ClanCapital,
+    val clanCapitalPoints: Int,
+    val clanLevel: Int,
+    val clanPoints: Int,
+    val description: String,
+    val isFamilyFriendly: Boolean,
+    val isWarLogPublic: Boolean,
+    val labels: List<Any?>,
+    val location: Location,
+    val memberList: List<Member>,
+    val members: Int,
+    val name: String,
+    val requiredBuilderBaseTrophies: Int,
+    val requiredTownhallLevel: Int,
+    val requiredTrophies: Int,
+    val tag: String,
+    val type: String,
+    val warFrequency: String,
+    val warLeague: WarLeague,
+    val warLosses: Int,
+    val warTies: Int,
+    val warWinStreak: Int,
+    val warWins: Int
+)
