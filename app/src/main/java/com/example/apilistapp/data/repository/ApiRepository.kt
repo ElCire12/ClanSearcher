@@ -4,5 +4,6 @@ import com.example.apilistapp.data.remote.ApiInterface
 
 class ApiRepository {
     val apiInterface = ApiInterface.create()
-    suspend fun getClans() = apiInterface.getClans("Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiIsImtpZCI6IjI4YTMxOGY3LTAwMDAtYTFlYi03ZmExLTJjNzQzM2M2Y2NhNSJ9.eyJpc3MiOiJzdXBlcmNlbGwiLCJhdWQiOiJzdXBlcmNlbGw6Z2FtZWFwaSIsImp0aSI6IjY5YWY2MjIyLTdiZTgtNDIwMS04Mzc1LTIxYjRhYWY5NWNiOSIsImlhdCI6MTc3NTYzMDU4OSwic3ViIjoiZGV2ZWxvcGVyLzU4YmE3NWE3LTkwYjQtNjRiNS03YzZhLTgwY2NhNmM1MDdiNiIsInNjb3BlcyI6WyJjbGFzaCJdLCJsaW1pdHMiOlt7InRpZXIiOiJkZXZlbG9wZXIvc2lsdmVyIiwidHlwZSI6InRocm90dGxpbmcifSx7ImNpZHJzIjpbIjc5LjExNi4xNzMuNjYiXSwidHlwZSI6ImNsaWVudCJ9XX0.2o4324ASVJF_pAAE3ruirvHU8_GJ_2Pi7rUzFmytBPK_Mh6hs6OoD2aR4tCSgcsfFPkqr15ltwoDFR2u6jTp2g")
+    suspend fun getClans() = apiInterface.getClans(locationId = 32000218)
+    suspend fun searchClan(name: String?) = apiInterface.getClans(name = name, limit = 10)
 }

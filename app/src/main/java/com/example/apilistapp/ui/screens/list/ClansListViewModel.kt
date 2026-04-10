@@ -5,12 +5,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.apilistapp.data.repository.ApiRepository
 import com.example.apilistapp.domain.Clan
+import com.example.apilistapp.domain.ClansResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import retrofit2.Response
 
 class ClansListViewModel : ViewModel() {
     private val repository = ApiRepository()
@@ -18,14 +20,41 @@ class ClansListViewModel : ViewModel() {
     val clans: StateFlow<List<Clan>> = _clans.asStateFlow()
 
     init {
-        getClans()
+        getClansList()
         Log.d("MI_APP", "INIT")
     }
 
-    fun getClans() {
+    fun getClansList() {
         Log.d("MI_APP", "getClans()")
         viewModelScope.launch(Dispatchers.IO) {
             val response = repository.getClans()
+            withContext(Dispatchers.Main) {
+                if (response.isSuccessful) {
+                    _clans.value = response.body()?.clans ?: emptyList()
+                } else {
+                    val codigoError = response.code()
+                    val cuerpoError = response.errorBody()?.string()
+
+                    Log.e("MI_APP", "Código HTTP: $codigoError")
+                    Log.e("MI_APP", "Mensaje genérico: ${response.message()}")
+                    Log.e("MI_APP", "Detalle del error: $cuerpoError")
+                }
+            }
+        }
+    }
+
+    fun searchClan(name: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+
+            val response : Response<ClansResponse>
+
+            if (name == ""){
+                response = repository.getClans()
+            }
+            else{
+                response = repository.searchClan(name)
+            }
+
             withContext(Dispatchers.Main) {
                 if (response.isSuccessful) {
                     _clans.value = response.body()?.clans ?: emptyList()
