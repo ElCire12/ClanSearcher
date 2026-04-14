@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.apilistapp.data.repository.ApiRepository
 import com.example.apilistapp.data.remote.dto.ClanInfo.ClanInfo
-import com.example.apilistapp.data.remote.dto.ClansList.Clan
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
