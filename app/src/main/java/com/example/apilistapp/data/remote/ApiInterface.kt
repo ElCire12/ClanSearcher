@@ -26,7 +26,7 @@ interface ApiInterface {
 
         @Query("name") name: String? = null
 
-    ): Response<com.example.apilistapp.data.remote.dto.ClansList.ClansList>
+    ): Response<ClansList>
 
     @GET("v1/clans/{clanTag}")
     suspend fun getClanInfo(
@@ -34,7 +34,7 @@ interface ApiInterface {
 
         @Path("clanTag") clanTag: String
 
-    ): Response<com.example.apilistapp.data.remote.dto.ClanInfo.ClanInfo>
+    ): Response<ClanInfo>
 
     companion object {
         const val BASE_URL = "https://api.clashofclans.com/"

@@ -24,19 +24,25 @@ fun DetailScreen(
 ) {
     val viewModel: DetailScreenViewModel = viewModel()
     val clan by viewModel.clanInfo.collectAsStateWithLifecycle()
+
     LaunchedEffect(Unit) {
         viewModel.getClanInfo(clanTag)
     }
 
-    Column(
-        modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Text(clan!!.name + " " + clan!!.tag)
-        Spacer(modifier = Modifier.height(16.dp))
-        Button(onClick = { navigateBack() }) {
-            Text("Volver a la Lista")
+    if (clan == null) {
+        // Muestras un texto de "Cargando..." o un CircularProgressIndicator
+        Text("Cargando información del clan...")
+    } else {
+        Column(
+            modifier = Modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Text(clan!!.name + " " + clan!!.tag)
+            Spacer(modifier = Modifier.height(16.dp))
+            Button(onClick = { navigateBack() }) {
+                Text("Volver a la Lista")
+            }
         }
     }
 }
