@@ -1,17 +1,19 @@
-package com.example.apilistapp.domain.ClansList
+package com.example.apilistapp.data.remote.dto.ClanInfo
 
-data class Clan(
+data class ClanInfo(
     val badgeUrls: BadgeUrls,
     val capitalLeague: CapitalLeague,
-    val chatLanguage: ChatLanguage,
     val clanBuilderBasePoints: Int,
+    val clanCapital: ClanCapital,
     val clanCapitalPoints: Int,
     val clanLevel: Int,
     val clanPoints: Int,
+    val description: String,
     val isFamilyFriendly: Boolean,
     val isWarLogPublic: Boolean,
-    val labels: List<Label>,
+    val labels: List<Any?>,
     val location: Location,
+    val memberList: List<Member>,
     val members: Int,
     val name: String,
     val requiredBuilderBaseTrophies: Int,

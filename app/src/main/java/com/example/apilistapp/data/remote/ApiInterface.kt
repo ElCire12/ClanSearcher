@@ -1,7 +1,7 @@
 package com.example.apilistapp.data.remote
 
-import com.example.apilistapp.domain.ClanInfo.ClanInfo
-import com.example.apilistapp.domain.ClansList.ClansList
+import com.example.apilistapp.data.remote.dto.ClanInfo.ClanInfo
+import com.example.apilistapp.data.remote.dto.ClansList.ClansList
 import okhttp3.OkHttpClient
 import retrofit2.Response
 import retrofit2.Retrofit
@@ -12,10 +12,13 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface ApiInterface {
+
+    val TOKEN: String
+        get() = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiIsImtpZCI6IjI4YTMxOGY3LTAwMDAtYTFlYi03ZmExLTJjNzQzM2M2Y2NhNSJ9.eyJpc3MiOiJzdXBlcmNlbGwiLCJhdWQiOiJzdXBlcmNlbGw6Z2FtZWFwaSIsImp0aSI6IjY5YWY2MjIyLTdiZTgtNDIwMS04Mzc1LTIxYjRhYWY5NWNiOSIsImlhdCI6MTc3NTYzMDU4OSwic3ViIjoiZGV2ZWxvcGVyLzU4YmE3NWE3LTkwYjQtNjRiNS03YzZhLTgwY2NhNmM1MDdiNiIsInNjb3BlcyI6WyJjbGFzaCJdLCJsaW1pdHMiOlt7InRpZXIiOiJkZXZlbG9wZXIvc2lsdmVyIiwidHlwZSI6InRocm90dGxpbmcifSx7ImNpZHJzIjpbIjc5LjExNi4xNzMuNjYiXSwidHlwZSI6ImNsaWVudCJ9XX0.2o4324ASVJF_pAAE3ruirvHU8_GJ_2Pi7rUzFmytBPK_Mh6hs6OoD2aR4tCSgcsfFPkqr15ltwoDFR2u6jTp2g"
+
     @GET("v1/clans")
     suspend fun getClansList(
-        // La API de Clash of Clans OBLIGA a pasar tu Token de desarrollador
-        @Header("Authorization") token: String = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiIsImtpZCI6IjI4YTMxOGY3LTAwMDAtYTFlYi03ZmExLTJjNzQzM2M2Y2NhNSJ9.eyJpc3MiOiJzdXBlcmNlbGwiLCJhdWQiOiJzdXBlcmNlbGw6Z2FtZWFwaSIsImp0aSI6IjY5YWY2MjIyLTdiZTgtNDIwMS04Mzc1LTIxYjRhYWY5NWNiOSIsImlhdCI6MTc3NTYzMDU4OSwic3ViIjoiZGV2ZWxvcGVyLzU4YmE3NWE3LTkwYjQtNjRiNS03YzZhLTgwY2NhNmM1MDdiNiIsInNjb3BlcyI6WyJjbGFzaCJdLCJsaW1pdHMiOlt7InRpZXIiOiJkZXZlbG9wZXIvc2lsdmVyIiwidHlwZSI6InRocm90dGxpbmcifSx7ImNpZHJzIjpbIjc5LjExNi4xNzMuNjYiXSwidHlwZSI6ImNsaWVudCJ9XX0.2o4324ASVJF_pAAE3ruirvHU8_GJ_2Pi7rUzFmytBPK_Mh6hs6OoD2aR4tCSgcsfFPkqr15ltwoDFR2u6jTp2g",
+        @Header("Authorization") token: String = TOKEN,
 
         @Query("locationId") locationId: Int? = null,
 
@@ -23,16 +26,15 @@ interface ApiInterface {
 
         @Query("name") name: String? = null
 
-    ): Response<ClansList>
+    ): Response<com.example.apilistapp.data.remote.dto.ClansList.ClansList>
 
     @GET("v1/clans/{clanTag}")
     suspend fun getClanInfo(
-        // La API de Clash of Clans OBLIGA a pasar tu Token de desarrollador
-        @Header("Authorization") token: String = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiIsImtpZCI6IjI4YTMxOGY3LTAwMDAtYTFlYi03ZmExLTJjNzQzM2M2Y2NhNSJ9.eyJpc3MiOiJzdXBlcmNlbGwiLCJhdWQiOiJzdXBlcmNlbGw6Z2FtZWFwaSIsImp0aSI6IjY5YWY2MjIyLTdiZTgtNDIwMS04Mzc1LTIxYjRhYWY5NWNiOSIsImlhdCI6MTc3NTYzMDU4OSwic3ViIjoiZGV2ZWxvcGVyLzU4YmE3NWE3LTkwYjQtNjRiNS03YzZhLTgwY2NhNmM1MDdiNiIsInNjb3BlcyI6WyJjbGFzaCJdLCJsaW1pdHMiOlt7InRpZXIiOiJkZXZlbG9wZXIvc2lsdmVyIiwidHlwZSI6InRocm90dGxpbmcifSx7ImNpZHJzIjpbIjc5LjExNi4xNzMuNjYiXSwidHlwZSI6ImNsaWVudCJ9XX0.2o4324ASVJF_pAAE3ruirvHU8_GJ_2Pi7rUzFmytBPK_Mh6hs6OoD2aR4tCSgcsfFPkqr15ltwoDFR2u6jTp2g",
+        @Header("Authorization") token: String = TOKEN,
 
         @Path("clanTag") clanTag: String
 
-    ): Response<ClanInfo>
+    ): Response<com.example.apilistapp.data.remote.dto.ClanInfo.ClanInfo>
 
     companion object {
         const val BASE_URL = "https://api.clashofclans.com/"

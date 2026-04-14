@@ -1,4 +1,4 @@
-package com.example.apilistapp.domain.ClansList
+package com.example.apilistapp.data.remote.dto.ClanInfo
 
 data class WarLeague(
     val id: Int,

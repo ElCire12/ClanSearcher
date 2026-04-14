@@ -8,13 +8,14 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.apilistapp.domain.ClansList.Clan
+import com.example.apilistapp.data.remote.dto.ClansList.Clan
 import com.example.apilistapp.ui.screens.list.ClansListViewModel
 
 @Composable
@@ -23,6 +24,10 @@ fun DetailScreen(
 ) {
     val viewModel: DetailScreenViewModel = viewModel()
     val clan by viewModel.clanInfo.collectAsStateWithLifecycle()
+    LaunchedEffect(Unit) {
+        viewModel.getClanInfo(clanTag)
+    }
+
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,

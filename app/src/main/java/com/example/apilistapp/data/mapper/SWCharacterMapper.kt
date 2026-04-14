@@ -2,11 +2,11 @@ package com.example.apilistapp.data.mapper
 
 import com.example.apilistapp.data.local.entity.SWCharacterEntity
 import com.example.apilistapp.data.remote.dto.SWCharacterDto
-import com.example.apilistapp.domain.ClansList.SWCharacter
+import com.example.apilistapp.data.remote.dto.ClansList.SWCharacter
 
-fun SWCharacterDto.toDomain(): SWCharacter {
+fun SWCharacterDto.toDomain(): com.example.apilistapp.data.remote.dto.ClansList.SWCharacter {
     val id = url.trimEnd('/').split('/').last().toIntOrNull() ?: 0
-    return SWCharacter(
+    return com.example.apilistapp.data.remote.dto.ClansList.SWCharacter(
         id = id,
         name = name,
         birthYear = birthYear,
@@ -35,8 +35,8 @@ fun SWCharacter.toEntity(): SWCharacterEntity {
     )
 }
 
-fun SWCharacterEntity.toDomain(): SWCharacter {
-    return SWCharacter(
+fun SWCharacterEntity.toDomain(): com.example.apilistapp.data.remote.dto.ClansList.SWCharacter {
+    return com.example.apilistapp.data.remote.dto.ClansList.SWCharacter(
         id = id,
         name = name,
         birthYear = birthYear,

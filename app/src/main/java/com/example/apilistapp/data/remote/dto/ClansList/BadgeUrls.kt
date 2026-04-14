@@ -1,4 +1,4 @@
-package com.example.apilistapp.domain.ClansList
+package com.example.apilistapp.data.remote.dto.ClansList
 
 data class BadgeUrls(
     val large: String,

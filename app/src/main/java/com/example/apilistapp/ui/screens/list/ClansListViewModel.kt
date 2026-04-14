@@ -4,8 +4,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.apilistapp.data.repository.ApiRepository
-import com.example.apilistapp.domain.ClansList.Clan
-import com.example.apilistapp.domain.ClansList.ClansList
+import com.example.apilistapp.data.remote.dto.ClansList.Clan
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -21,7 +20,6 @@ class ClansListViewModel : ViewModel() {
 
     init {
         getClansList()
-        Log.d("MI_APP", "INIT")
     }
 
     fun getClansList() {
@@ -46,7 +44,7 @@ class ClansListViewModel : ViewModel() {
     fun searchClan(name: String) {
         viewModelScope.launch(Dispatchers.IO) {
 
-            val response : Response<ClansList>
+            val response : Response<com.example.apilistapp.data.remote.dto.ClansList.ClansList>
 
             if (name == ""){
                 response = repository.getClans()
