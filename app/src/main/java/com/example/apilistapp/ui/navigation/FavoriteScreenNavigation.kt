@@ -5,26 +5,26 @@ import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.ui.NavDisplay
 import com.example.apilistapp.ui.screens.detail.DetailScreen
-import com.example.apilistapp.ui.screens.list.ListScreen
+import com.example.apilistapp.ui.screens.favorites.FavoritesScreen
 
 @Composable
-fun ListNavigation() {
-    val listBackStack = rememberNavBackStack(ListNestedRoute.MainList)
+fun FavoriteNavigation() {
+    val listBackStack = rememberNavBackStack(FavoriteNestedRoute.MainFavoriteList)
 
     NavDisplay(
         backStack = listBackStack,
         onBack = { listBackStack.removeLastOrNull() },
         entryProvider = entryProvider {
 
-            entry<ListNestedRoute.MainList> {
-                ListScreen(
+            entry<FavoriteNestedRoute.MainFavoriteList> {
+                FavoritesScreen(
                     navigateToDetail = { tagClicado ->
-                        listBackStack.add(ListNestedRoute.Detail(tagClicado))
+                        listBackStack.add(FavoriteNestedRoute.FavoriteDetail(tagClicado))
                     }
                 )
             }
 
-            entry<ListNestedRoute.Detail> { nestedRoute ->
+            entry<FavoriteNestedRoute.FavoriteDetail> { nestedRoute ->
                 DetailScreen(
                     clanTag = nestedRoute.clanTag,
                     navigateBack = { listBackStack.removeLastOrNull() }
@@ -33,4 +33,3 @@ fun ListNavigation() {
         }
     )
 }
-

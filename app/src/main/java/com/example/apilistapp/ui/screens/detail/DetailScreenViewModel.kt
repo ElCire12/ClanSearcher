@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.apilistapp.data.mapper.toDomain
 import com.example.apilistapp.data.repository.ApiRepository
+import com.example.apilistapp.data.repository.FavoriteRepository
 import com.example.apilistapp.domain.ClanDomain
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -15,7 +16,7 @@ import kotlinx.coroutines.withContext
 
 class DetailScreenViewModel : ViewModel() {
     private val repository = ApiRepository()
-
+    private val localRepository = FavoriteRepository()
     private val _clanInfo = MutableStateFlow<ClanDomain?>(null)
     val clanInfo: StateFlow<ClanDomain?> = _clanInfo.asStateFlow()
 
@@ -41,5 +42,11 @@ class DetailScreenViewModel : ViewModel() {
 
     fun setClanInfoNull(){
         _clanInfo.value = null
+    }
+
+    fun addToFavorites(clan: ClanDomain) {
+        viewModelScope.launch {
+            localRepository.saveAsFavorite(clan)
+        }
     }
 }

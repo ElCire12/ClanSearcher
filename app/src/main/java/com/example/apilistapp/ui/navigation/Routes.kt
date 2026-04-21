@@ -18,3 +18,8 @@ sealed class ListNestedRoute: NavKey {
     @Serializable data object MainList: ListNestedRoute()
     @Serializable
     data class Detail(val clanTag: String) : ListNestedRoute()}
+
+sealed class FavoriteNestedRoute: NavKey {
+    @Serializable data object MainFavoriteList: ListNestedRoute()
+    @Serializable
+    data class FavoriteDetail(val clanTag: String) : ListNestedRoute()}

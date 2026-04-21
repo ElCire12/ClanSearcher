@@ -7,7 +7,7 @@ import com.example.apilistapp.domain.ClanDomain
 
 class FavoriteRepository {
     val daoInterface = APIListApplication.database.clanDao()
-    suspend fun saveAsFavorite(character: ClanDomain) = daoInterface.addCharacter(character.toEntity())
+    suspend fun saveAsFavorite(clan: ClanDomain) = daoInterface.addCharacter(clan.toEntity())
 
     suspend fun deleteFavorite(character: ClanDomain)= daoInterface.deleteCharacter(character.toEntity())
 

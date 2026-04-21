@@ -60,14 +60,7 @@ fun DetailScreen(
                     Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
                         Row(
                             modifier = Modifier
-                                .fillMaxWidth()
-
-                            //Border debug:
-//                                .border(
-//                                    width = 2.dp,
-//                                    color = Color.Red,
-//                                )
-                            ,
+                                .fillMaxWidth(),
                             horizontalArrangement = Arrangement.SpaceBetween
                         ) {
                             IconButton(onClick = navigateBack) {
@@ -77,7 +70,7 @@ fun DetailScreen(
                                 )
                             }
 
-                            IconButton(onClick = {}) {
+                            IconButton(onClick = {viewModel.addToFavorites(clan!!)}) {
                                 Icon(
                                     Icons.Outlined.BookmarkAdd,
                                     contentDescription = "Guardar Clan"
