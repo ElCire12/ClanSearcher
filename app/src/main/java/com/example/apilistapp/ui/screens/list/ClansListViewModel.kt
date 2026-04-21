@@ -3,8 +3,9 @@ package com.example.apilistapp.ui.screens.list
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.apilistapp.data.mapper.toDomain
 import com.example.apilistapp.data.repository.ApiRepository
-import com.example.apilistapp.data.remote.dto.ClansList.Clan
+import com.example.apilistapp.domain.ClanDomain
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -15,8 +16,8 @@ import retrofit2.Response
 
 class ClansListViewModel : ViewModel() {
     private val repository = ApiRepository()
-    private val _clans = MutableStateFlow<List<Clan>>(emptyList())
-    val clans: StateFlow<List<Clan>> = _clans.asStateFlow()
+    private val _clans = MutableStateFlow<List<ClanDomain>>(emptyList())
+    val clans: StateFlow<List<ClanDomain>> = _clans.asStateFlow()
 
     fun getClansList() {
         Log.d("MI_APP", "getClans()")
@@ -24,7 +25,7 @@ class ClansListViewModel : ViewModel() {
             val response = repository.getClans()
             withContext(Dispatchers.Main) {
                 if (response.isSuccessful) {
-                    _clans.value = response.body()?.clans ?: emptyList()
+                    _clans.value = response.body()?.clans?.map { it.toDomain() } ?: emptyList()
                 } else {
                     val codigoError = response.code()
                     val cuerpoError = response.errorBody()?.string()
@@ -40,18 +41,17 @@ class ClansListViewModel : ViewModel() {
     fun searchClan(name: String) {
         viewModelScope.launch(Dispatchers.IO) {
 
-            val response : Response<com.example.apilistapp.data.remote.dto.ClansList.ClansList>
+            val response: Response<com.example.apilistapp.data.remote.dto.ClansList.ClansListDto>
 
-            if (name == ""){
+            if (name == "") {
                 response = repository.getClans()
-            }
-            else{
+            } else {
                 response = repository.searchClan(name)
             }
 
             withContext(Dispatchers.Main) {
                 if (response.isSuccessful) {
-                    _clans.value = response.body()?.clans ?: emptyList()
+                    _clans.value = (response.body()?.clans?.map { it.toDomain() } ?: emptyList())
                 } else {
                     val codigoError = response.code()
                     val cuerpoError = response.errorBody()?.string()

@@ -88,7 +88,7 @@ fun DetailScreen(
 
 
                         Row(verticalAlignment = Alignment.CenterVertically) {
-                            ClanLogo(imageUrl = clan!!.badgeUrls.large)
+                            ClanLogo(imageUrl = clan!!.logoUrlLarge)
                             Spacer(Modifier.width(16.dp))
                             Column {
                                 Text(
@@ -114,7 +114,7 @@ fun DetailScreen(
                         border = BorderStroke(1.dp, Color(0xFFE2E8F0))
                     ) {
                         Text(
-                            text = clan!!.description,
+                            text = clan!!.description ?: "No hay descripción disponible",
                             modifier = Modifier.padding(16.dp),
                             style = MaterialTheme.typography.bodyMedium,
                             lineHeight = 20.sp
@@ -146,7 +146,7 @@ fun DetailScreen(
                                 Modifier.weight(1f),
                                 Icons.Default.LocationOn,
                                 "Región",
-                                clan!!.location?.name ?: "Internacional",
+                                clan!!.location ?: "Internacional",
                                 Color(0xFF10B981)
                             )
                             StatCard(

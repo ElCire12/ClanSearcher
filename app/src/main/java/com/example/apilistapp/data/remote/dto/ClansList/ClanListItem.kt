@@ -1,6 +1,6 @@
 package com.example.apilistapp.data.remote.dto.ClansList
 
-data class Clan(
+data class ClanListItem(
     val badgeUrls: com.example.apilistapp.data.remote.dto.ClansList.BadgeUrls,
     val capitalLeague: com.example.apilistapp.data.remote.dto.ClansList.CapitalLeague,
     val chatLanguage: com.example.apilistapp.data.remote.dto.ClansList.ChatLanguage,

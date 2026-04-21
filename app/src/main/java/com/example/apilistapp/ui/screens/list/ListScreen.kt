@@ -31,7 +31,8 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
-import com.example.apilistapp.data.remote.dto.ClansList.Clan
+import com.example.apilistapp.data.remote.dto.ClansList.ClanListItem
+import com.example.apilistapp.domain.ClanDomain
 
 @Composable
 fun ListScreen(navigateToDetail: (String) -> Unit) {
@@ -69,7 +70,7 @@ fun ListScreen(navigateToDetail: (String) -> Unit) {
 }
 
 @Composable
-fun ClanItem(clan: Clan, navigateToDetail: (String) -> Unit) {
+fun ClanItem(clan: ClanDomain, navigateToDetail: (String) -> Unit) {
     Card(
         border = BorderStroke(2.dp, Color.LightGray),
         modifier = Modifier.fillMaxWidth()
@@ -79,7 +80,7 @@ fun ClanItem(clan: Clan, navigateToDetail: (String) -> Unit) {
             modifier = Modifier.padding(horizontal = 20.dp)
         ) {
             AsyncImage(
-                model = clan.badgeUrls.large,
+                model = clan.logoUrlLarge,
                 contentDescription = "Imagen clan",
                 modifier = Modifier.size(50.dp),
             )
