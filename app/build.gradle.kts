@@ -70,4 +70,7 @@ dependencies {
     //Cargar imagenes web
     implementation(libs.coil.compose)
 
+    //Logos
+    implementation(libs.androidx.compose.material.icons.extended)
+
 }
