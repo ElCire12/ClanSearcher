@@ -18,10 +18,6 @@ class ClansListViewModel : ViewModel() {
     private val _clans = MutableStateFlow<List<Clan>>(emptyList())
     val clans: StateFlow<List<Clan>> = _clans.asStateFlow()
 
-    init {
-        getClansList()
-    }
-
     fun getClansList() {
         Log.d("MI_APP", "getClans()")
         viewModelScope.launch(Dispatchers.IO) {

@@ -37,4 +37,8 @@ class DetailScreenViewModel : ViewModel() {
         }
         Log.d("MI_APP", "getclaninfo, tag: $tag, clan: ${_clanInfo.value}")
     }
+
+    fun setClanInfoNull(){
+        _clanInfo.value = null
+    }
 }

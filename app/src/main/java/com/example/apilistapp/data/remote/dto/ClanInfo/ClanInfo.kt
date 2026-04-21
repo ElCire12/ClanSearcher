@@ -1,5 +1,7 @@
 package com.example.apilistapp.data.remote.dto.ClanInfo
 
+import Member
+
 data class ClanInfo(
     val badgeUrls: BadgeUrls,
     val capitalLeague: CapitalLeague,
