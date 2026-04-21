@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.apilistapp.data.mapper.toDomain
+import com.example.apilistapp.data.remote.dto.ClansList.ClansListDto
 import com.example.apilistapp.data.repository.ApiRepository
 import com.example.apilistapp.domain.ClanDomain
 import kotlinx.coroutines.Dispatchers
@@ -20,12 +21,11 @@ class ClansListViewModel : ViewModel() {
     val clans: StateFlow<List<ClanDomain>> = _clans.asStateFlow()
 
     fun getClansList() {
-        Log.d("MI_APP", "getClans()")
         viewModelScope.launch(Dispatchers.IO) {
             val response = repository.getClans()
             withContext(Dispatchers.Main) {
                 if (response.isSuccessful) {
-                    _clans.value = response.body()?.clans?.map { it.toDomain() } ?: emptyList()
+                    _clans.value = response.body()?.clans?.map { Log.d("MI_APP", it.location.toString()); it.toDomain() } ?: emptyList()
                 } else {
                     val codigoError = response.code()
                     val cuerpoError = response.errorBody()?.string()
@@ -41,7 +41,7 @@ class ClansListViewModel : ViewModel() {
     fun searchClan(name: String) {
         viewModelScope.launch(Dispatchers.IO) {
 
-            val response: Response<com.example.apilistapp.data.remote.dto.ClansList.ClansListDto>
+            val response: Response<ClansListDto>
 
             if (name == "") {
                 response = repository.getClans()
@@ -51,7 +51,7 @@ class ClansListViewModel : ViewModel() {
 
             withContext(Dispatchers.Main) {
                 if (response.isSuccessful) {
-                    _clans.value = (response.body()?.clans?.map { it.toDomain() } ?: emptyList())
+                    _clans.value = (response.body()?.clans?.map {Log.d("MI_APP", "${it.location ?: null}"); it.toDomain() } ?: emptyList())
                 } else {
                     val codigoError = response.code()
                     val cuerpoError = response.errorBody()?.string()

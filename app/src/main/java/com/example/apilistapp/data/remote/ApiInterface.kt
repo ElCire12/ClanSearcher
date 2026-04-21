@@ -37,12 +37,34 @@ interface ApiInterface {
     ): Response<ClanInfoDto>
 
     companion object {
+        /*
+                const val BASE_URL = "https://api.clashofclans.com/"
+                fun create(): ApiInterface {
+                    val client = OkHttpClient.Builder().build()
+                    val retrofit = Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(
+                        GsonConverterFactory.create()
+                    ).client(client).build()
+                    return retrofit.create(ApiInterface::class.java)
+                }*/
         const val BASE_URL = "https://api.clashofclans.com/"
         fun create(): ApiInterface {
-            val client = OkHttpClient.Builder().build()
-            val retrofit = Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(
-                GsonConverterFactory.create()
-            ).client(client).build()
+            // 1. Crear el interceptor de logs
+            val logging = okhttp3.logging.HttpLoggingInterceptor().apply {
+                level = okhttp3.logging.HttpLoggingInterceptor.Level.BODY
+            }
+
+            // 2. Añadir el interceptor al cliente OkHttp
+            val client = OkHttpClient.Builder()
+                .addInterceptor(logging) // <--- Esta es la clave
+                .build()
+
+            // 3. Configurar Retrofit con ese cliente
+            val retrofit = Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(client)
+                .build()
+
             return retrofit.create(ApiInterface::class.java)
         }
     }

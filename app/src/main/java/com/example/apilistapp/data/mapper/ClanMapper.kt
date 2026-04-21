@@ -27,9 +27,9 @@ fun ClanListItem.toDomain(): ClanDomain{
         logoUrlSmall = badgeUrls.small,
         clanLevel = clanLevel,
         clanPoints = clanPoints,
-        description = null,
-        location = location.name,
-        memberList = null,
+        description = null, //Cuando pedimos una lista no está la descripción
+        location = location?.name, //Cuando pedimos una lista a veces viene la location en null
+        memberList = null, //Cuando pedimos una lista no contiene lista de miembros
         members = members,
         name =  name,
         tag = tag,

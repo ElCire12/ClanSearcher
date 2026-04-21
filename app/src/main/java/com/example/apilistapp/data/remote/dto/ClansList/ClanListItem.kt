@@ -11,7 +11,7 @@ data class ClanListItem(
     val isFamilyFriendly: Boolean,
     val isWarLogPublic: Boolean,
     val labels: List<com.example.apilistapp.data.remote.dto.ClansList.Label>,
-    val location: com.example.apilistapp.data.remote.dto.ClansList.Location,
+    val location: com.example.apilistapp.data.remote.dto.ClansList.Location?,
     val members: Int,
     val name: String,
     val requiredBuilderBaseTrophies: Int,
