@@ -1,6 +1,13 @@
-package com.example.apilistapp.domain
+package com.example.apilistapp.data.local.entity
 
-data class ClanDomain(
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import com.example.apilistapp.domain.MemberDomain
+
+@Entity(tableName = "favorites")
+data class ClanEntity(
+    @PrimaryKey
+    val tag: String,
     val logoUrlLarge: String,
     val logoUrlSmall: String,
     val clanLevel: Int,
@@ -10,7 +17,6 @@ data class ClanDomain(
     val memberList: List<MemberDomain>?, //Cuando pedimos una lista no contiene lista de miembros
     val members: Int,
     val name: String,
-    val tag: String,
     val warWinStreak: Int,
     val warWins: Int
 )

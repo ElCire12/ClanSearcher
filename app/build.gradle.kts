@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.jetbrains.kotlin.serialization)
+    id("com.google.devtools.ksp")
 }
 
 android {
@@ -73,4 +74,8 @@ dependencies {
     //Logos
     implementation(libs.androidx.compose.material.icons.extended)
 
+    //Room DB
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.room.ktx)
+    ksp(libs.androidx.room.compiler)
 }

@@ -1,6 +1,6 @@
 package com.example.apilistapp.data.remote.dto.ClanInfo
 
-import Member
+import MemberDto
 
 data class ClanInfoDto(
     val badgeUrls: BadgeUrls,
@@ -15,7 +15,7 @@ data class ClanInfoDto(
     val isWarLogPublic: Boolean,
     val labels: List<Any?>,
     val location: Location,
-    val memberList: List<Member>,
+    val memberList: List<MemberDto>,
     val members: Int,
     val name: String,
     val requiredBuilderBaseTrophies: Int,

@@ -3,7 +3,7 @@ import com.example.apilistapp.data.remote.dto.ClanInfo.League
 import com.example.apilistapp.data.remote.dto.ClanInfo.LeagueTier
 import com.example.apilistapp.data.remote.dto.ClanInfo.PlayerHouse
 
-data class Member(
+data class MemberDto(
     val builderBaseLeague: BuilderBaseLeague,
     val builderBaseTrophies: Int,
     val clanRank: Int,
