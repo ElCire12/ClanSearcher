@@ -13,7 +13,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.apilistapp.domain.ClanDomain
 import com.example.apilistapp.ui.components.ClanListComponent
+import com.example.apilistapp.ui.components.LoadingComponent
 import com.example.apilistapp.ui.components.SearchHeaderComponent
 
 @Composable
@@ -42,7 +44,12 @@ fun ListScreen(navigateToDetail: (String) -> Unit) {
             }
         )
 
-        ClanListComponent(clans = clans, navigateToDetail = navigateToDetail)
+        if (clans != emptyList<ClanDomain>()) {
+            ClanListComponent(clans = clans, navigateToDetail = navigateToDetail)
+
+        } else {
+            LoadingComponent(message = "Obteniendo clanes...")
+        }
     }
 }
 

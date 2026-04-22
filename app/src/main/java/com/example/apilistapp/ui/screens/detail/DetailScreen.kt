@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -27,9 +26,9 @@ import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material.icons.filled.MilitaryTech
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.outlined.BookmarkAdd
+import androidx.compose.material.icons.outlined.BookmarkAdded
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -51,6 +50,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import com.example.apilistapp.domain.MemberDomain
+import com.example.apilistapp.ui.components.LoadingComponent
 
 @Composable
 fun DetailScreen(
@@ -58,17 +58,21 @@ fun DetailScreen(
     navigateBack: () -> Unit
 ) {
     val viewModel: DetailScreenViewModel = viewModel()
-    val clan by viewModel.clanInfo.collectAsStateWithLifecycle()
+    val clanInfo by viewModel.clanInfo.collectAsStateWithLifecycle()
+    val isFavorite by viewModel.isFavorite.collectAsStateWithLifecycle()
 
-    LaunchedEffect(Unit) {
+    LaunchedEffect(clanTag) {
         viewModel.getClanInfo(clanTag)
+        viewModel.checkIsFavorite(clanTag)
     }
 
     // Usamos un Box para manejar el estado de carga o el contenido principal
     // El padding ya viene aplicado desde el NavigationWrapper (innerPadding)
     Box(modifier = Modifier.fillMaxSize()) {
-        if (clan == null) {
-            CargandoInformacion()
+        val clanInfo = clanInfo //Copia de claninfo para evitar que clan info original se convierta en null en medio del pintado de este box
+
+        if (clanInfo == null) {
+            LoadingComponent(message = "Obteniendo datos del clan...")
         } else {
             LazyColumn(
                 modifier = Modifier.fillMaxSize(),
@@ -90,9 +94,9 @@ fun DetailScreen(
                                 )
                             }
 
-                            IconButton(onClick = { viewModel.addToFavorites(clan!!) }) {
+                            IconButton(onClick = { viewModel.toggleFavorite(clanInfo!!) }) {
                                 Icon(
-                                    Icons.Outlined.BookmarkAdd,
+                                    imageVector = if (isFavorite) Icons.Outlined.BookmarkAdded else Icons.Outlined.BookmarkAdd,
                                     contentDescription = "Guardar Clan"
                                 )
                             }
@@ -100,16 +104,16 @@ fun DetailScreen(
 
 
                         Row(verticalAlignment = Alignment.CenterVertically) {
-                            ClanLogo(imageUrl = clan!!.logoUrlLarge)
+                            ClanLogo(imageUrl = clanInfo.logoUrlLarge)
                             Spacer(Modifier.width(16.dp))
                             Column {
                                 Text(
-                                    text = clan!!.name.replace("\"", ""),
+                                    text = clanInfo.name.replace("\"", ""),
                                     style = MaterialTheme.typography.headlineMedium,
                                     fontWeight = FontWeight.ExtraBold
                                 )
                                 Text(
-                                    text = clan!!.tag,
+                                    text = clanInfo.tag,
                                     style = MaterialTheme.typography.bodyLarge,
                                     color = Color.Gray
                                 )
@@ -126,7 +130,7 @@ fun DetailScreen(
                         border = BorderStroke(1.dp, Color(0xFFE2E8F0))
                     ) {
                         Text(
-                            text = clan!!.description ?: "No hay descripción disponible",
+                            text = clanInfo.description ?: "No hay descripción disponible",
                             modifier = Modifier.padding(16.dp),
                             style = MaterialTheme.typography.bodyMedium,
                             lineHeight = 20.sp
@@ -142,14 +146,14 @@ fun DetailScreen(
                                 Modifier.weight(1f),
                                 Icons.Default.Star,
                                 "Puntos",
-                                clan!!.clanPoints.toString(),
+                                clanInfo.clanPoints.toString(),
                                 Color(0xFFEAB308)
                             )
                             StatCard(
                                 Modifier.weight(1f),
                                 Icons.Default.EmojiEvents,
                                 "Victorias en guerra",
-                                clan!!.warWins.toString(),
+                                clanInfo.warWins.toString(),
                                 Color(0xFFA855F7)
                             )
                         }
@@ -158,14 +162,14 @@ fun DetailScreen(
                                 Modifier.weight(1f),
                                 Icons.Default.LocationOn,
                                 "Región",
-                                clan!!.location ?: "Internacional",
+                                clanInfo.location ?: "Internacional",
                                 Color(0xFF10B981)
                             )
                             StatCard(
                                 Modifier.weight(1f),
                                 Icons.Default.MilitaryTech,
                                 "Nivel",
-                                clan!!.clanLevel.toString(),
+                                clanInfo.clanLevel.toString(),
                                 Color(0xFF3B82F6)
                             )
                         }
@@ -183,7 +187,7 @@ fun DetailScreen(
                     ) {
                         // Título principal
                         Text(
-                            "Miembros (${clan!!.members}/50)",
+                            "Miembros (${clanInfo.members}/50)",
                             style = MaterialTheme.typography.titleLarge,
                             fontWeight = FontWeight.Bold
                         )
@@ -226,7 +230,7 @@ fun DetailScreen(
                 }
 
                 // Lista de miembros (Equivalente a una tabla en JS)
-                itemsIndexed(clan!!.memberList ?: emptyList()) { index, member ->
+                itemsIndexed(clanInfo.memberList ?: emptyList()) { index, member ->
                     MemberItem(member, index + 1)
                 }
             }
@@ -294,19 +298,6 @@ fun MemberItem(member: MemberDomain, rank: Int) {
                 )
             }
         }
-    }
-}
-
-@Composable
-fun CargandoInformacion() {
-    Column(
-        modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        CircularProgressIndicator(color = Color(0xFF3B82F6))
-        Spacer(Modifier.height(20.dp))
-        Text("Obteniendo datos del clan...", color = Color.Gray)
     }
 }
 

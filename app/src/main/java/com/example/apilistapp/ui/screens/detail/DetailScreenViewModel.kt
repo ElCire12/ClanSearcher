@@ -1,9 +1,7 @@
 package com.example.apilistapp.ui.screens.detail
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.apilistapp.data.mapper.toDomain
 import com.example.apilistapp.data.repository.ApiRepository
 import com.example.apilistapp.data.repository.FavoriteRepository
 import com.example.apilistapp.domain.ClanDomain
@@ -20,7 +18,30 @@ class DetailScreenViewModel : ViewModel() {
     private val _clanInfo = MutableStateFlow<ClanDomain?>(null)
     val clanInfo: StateFlow<ClanDomain?> = _clanInfo.asStateFlow()
 
+    private val _isFavorite = MutableStateFlow(false)
+    val isFavorite: StateFlow<Boolean> = _isFavorite.asStateFlow()
+
+    fun toggleFavorite(clan: ClanDomain) {
+        viewModelScope.launch {
+            if (_isFavorite.value) {
+                localRepository.deleteFavorite(clan)
+            } else {
+                localRepository.saveAsFavorite(clan)
+            }
+            _isFavorite.value = !_isFavorite.value
+        }
+    }
+
+    fun checkIsFavorite(tag: String) {
+        viewModelScope.launch {
+            val favorites = localRepository.getFavorites() //Esto carga to.do en memoria
+            _isFavorite.value = favorites.any { it.tag == tag } //Cambiar por petición SQL
+        }
+    }
+
+
     fun getClanInfo(tag: String) {
+        _clanInfo.value = null // <-- Limpiamos ANTES de empezar la petición
         viewModelScope.launch(Dispatchers.IO) {
             withContext(Dispatchers.Main) {
                 val responseClan = repository.getClanInfo(tag)
@@ -29,7 +50,7 @@ class DetailScreenViewModel : ViewModel() {
         }
     }
 
-    fun setClanInfoNull(){
+    fun setClanInfoNull() {
         _clanInfo.value = null
     }
 
