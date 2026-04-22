@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.apilistapp.ui.components.ClanListComponent
+import com.example.apilistapp.ui.components.SearchHeaderComponent
 
 @Composable
 fun FavoritesScreen(navigateToDetail: (String) -> Unit) {
@@ -35,21 +36,15 @@ fun FavoritesScreen(navigateToDetail: (String) -> Unit) {
             .fillMaxSize()
             .background(Color(0xFFF8FAFC)) // Fondo Slate 50 (como en JS)
     ) {
-        // Encabezado con buscador
-        Surface(
-            modifier = Modifier.fillMaxWidth(),
-            color = Color.White,
-            shadowElevation = 2.dp
-        ) {
-            Column(modifier = Modifier.padding(16.dp)) {
-                Text(
-                    text = "Clanes Favoritos",
-                    style = MaterialTheme.typography.headlineSmall,
-                    fontWeight = FontWeight.ExtraBold,
-                    modifier = Modifier.padding(bottom = 12.dp)
-                )
-            }
-        }
+//        SearchHeaderComponent(
+//            title = "Explorar Clanes",
+//            query = text, // Usamos la variable 'text' que definimos arriba
+//            placeholder = "Buscar por nombre o tag...",
+//            onQueryChange = { nuevoTexto ->
+//                text = nuevoTexto // Actualiza el estado visual del TextField
+//                viewModel.searchClan(nuevoTexto) // Ejecuta la búsqueda en la API
+//            }
+//        )
 
         ClanListComponent(favoriteClans, navigateToDetail = navigateToDetail)
     }

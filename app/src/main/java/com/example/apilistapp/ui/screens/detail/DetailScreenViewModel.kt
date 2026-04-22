@@ -23,21 +23,10 @@ class DetailScreenViewModel : ViewModel() {
     fun getClanInfo(tag: String) {
         viewModelScope.launch(Dispatchers.IO) {
             withContext(Dispatchers.Main) {
-                val response = repository.getClanInfo(tag)
-                if (response.isSuccessful) {
-                    _clanInfo.value = response.body()?.toDomain()
-                } else {
-                    _clanInfo.value = null
-                    val codigoError = response.code()
-                    val cuerpoError = response.errorBody()?.string()
-
-                    Log.e("MI_APP", "Código HTTP: $codigoError")
-                    Log.e("MI_APP", "Mensaje genérico: ${response.message()}")
-                    Log.e("MI_APP", "Detalle del error: $cuerpoError")
-                }
+                val responseClan = repository.getClanInfo(tag)
+                _clanInfo.value = responseClan
             }
         }
-        Log.d("MI_APP", "getclaninfo, tag: $tag, clan: ${_clanInfo.value}")
     }
 
     fun setClanInfoNull(){
