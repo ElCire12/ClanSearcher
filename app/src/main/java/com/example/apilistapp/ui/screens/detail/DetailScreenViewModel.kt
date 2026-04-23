@@ -22,41 +22,45 @@ class DetailScreenViewModel : ViewModel() {
     val isFavorite: StateFlow<Boolean> = _isFavorite.asStateFlow()
 
     fun toggleFavorite(clan: ClanDomain) {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             if (_isFavorite.value) {
                 localRepository.deleteFavorite(clan)
             } else {
                 localRepository.saveAsFavorite(clan)
             }
-            _isFavorite.value = !_isFavorite.value
+            withContext(Dispatchers.Main) {
+                _isFavorite.value = !_isFavorite.value
+            }
         }
     }
 
     fun checkIsFavorite(tag: String) {
         viewModelScope.launch {
             val favorites = localRepository.getFavorites() //Esto carga to.do en memoria
-            _isFavorite.value = favorites.any { it.tag == tag } //Cambiar por petición SQL
-        }
-    }
-
-
-    fun getClanInfo(tag: String) {
-        _clanInfo.value = null // <-- Limpiamos ANTES de empezar la petición
-        viewModelScope.launch(Dispatchers.IO) {
             withContext(Dispatchers.Main) {
-                val responseClan = repository.getClanInfo(tag)
-                _clanInfo.value = responseClan
+                _isFavorite.value = favorites.any { it.tag == tag } //Cambiar por petición SQL}
             }
         }
-    }
 
-    fun setClanInfoNull() {
-        _clanInfo.value = null
-    }
 
-    fun addToFavorites(clan: ClanDomain) {
-        viewModelScope.launch {
-            localRepository.saveAsFavorite(clan)
+        fun getClanInfo(tag: String) {
+            _clanInfo.value = null
+            viewModelScope.launch(Dispatchers.IO) {
+                withContext(Dispatchers.Main) {
+                    val responseClan = repository.getClanInfo(tag)
+                    _clanInfo.value = responseClan
+                }
+            }
+        }
+
+        fun setClanInfoNull() {
+            _clanInfo.value = null
+        }
+
+        fun addToFavorites(clan: ClanDomain) {
+            viewModelScope.launch {
+                localRepository.saveAsFavorite(clan)
+            }
         }
     }
 }

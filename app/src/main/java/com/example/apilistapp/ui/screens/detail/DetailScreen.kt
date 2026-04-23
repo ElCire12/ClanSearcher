@@ -2,6 +2,7 @@ package com.example.apilistapp.ui.screens.detail
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -48,6 +49,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
+
 import coil.compose.AsyncImage
 import com.example.apilistapp.domain.MemberDomain
 import com.example.apilistapp.ui.components.LoadingComponent
@@ -69,7 +71,8 @@ fun DetailScreen(
     // Usamos un Box para manejar el estado de carga o el contenido principal
     // El padding ya viene aplicado desde el NavigationWrapper (innerPadding)
     Box(modifier = Modifier.fillMaxSize()) {
-        val clanInfo = clanInfo //Copia de claninfo para evitar que clan info original se convierta en null en medio del pintado de este box
+        val clanInfo =
+            clanInfo //Copia de claninfo para evitar que clan info original se convierta en null en medio del pintado de este box
 
         if (clanInfo == null) {
             LoadingComponent(message = "Obteniendo datos del clan...")
@@ -276,7 +279,14 @@ fun MemberItem(member: MemberDomain, rank: Int) {
                 fontSize = 14.sp
             )
             Column(Modifier.weight(1f)) {
-                Text(member.name, fontWeight = FontWeight.Bold, fontSize = 15.sp)
+                Row( verticalAlignment = Alignment.CenterVertically,  horizontalArrangement = Arrangement.spacedBy(7.dp)) {
+                    Text(member.name, fontWeight = FontWeight.Bold, fontSize = 15.sp)
+                    Text(
+                        text = member.tag,
+                        style = MaterialTheme.typography.labelMedium,
+                        color = Color.Gray
+                    )
+                }
                 Text(
                     text = member.role.replaceFirstChar { it.uppercase() },
                     style = MaterialTheme.typography.labelMedium,

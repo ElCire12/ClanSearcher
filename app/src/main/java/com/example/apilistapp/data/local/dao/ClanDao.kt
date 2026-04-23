@@ -20,4 +20,7 @@ interface ClanDao {
 
     @Delete
     suspend fun deleteCharacter(clan: ClanEntity)
+
+    @Query("DELETE FROM favorites")
+    suspend fun deleteAllClans()
 }

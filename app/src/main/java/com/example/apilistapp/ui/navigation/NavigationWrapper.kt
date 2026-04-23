@@ -12,12 +12,12 @@ import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.ui.NavDisplay
 import com.example.apilistapp.ui.components.bottomBarItems
-import com.example.apilistapp.ui.screens.favorites.FavoritesScreen
 import com.example.apilistapp.ui.screens.settings.SettingsScreen
+import com.example.apilistapp.ui.screens.settings.SettingsViewModel
 
 
 @Composable
-fun NavigationWrapper(){
+fun NavigationWrapper(settings: SettingsViewModel){
     val backStack = rememberNavBackStack(Route.ListScreen)
     val currentRoute = backStack.lastOrNull()
     Scaffold(
@@ -47,7 +47,7 @@ fun NavigationWrapper(){
             entryProvider = entryProvider {
                 entry<Route.ListScreen> { ListNavigation() }
                 entry<Route.FavoritesScreen> { FavoriteNavigation() }
-                entry<Route.SettingsScreen> { SettingsScreen() }
+                entry<Route.SettingsScreen> { SettingsScreen(settings) }
             }
         )
     }
