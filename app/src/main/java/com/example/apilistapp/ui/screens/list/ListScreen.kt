@@ -34,16 +34,18 @@ fun ListScreen(navigateToDetail: (String) -> Unit) {
             .background(Color(0xFFF8FAFC)) // Fondo Slate 50 (como en JS)
     ) {
 
+        // HEADER
         SearchHeaderComponent(
             title = "Explorar Clanes",
             query = text, // Usamos la variable 'text' que definimos arriba
-            placeholder = "Buscar por nombre o tag...",
+            placeholder = "Buscar por nombre...",
             onQueryChange = { nuevoTexto ->
                 text = nuevoTexto // Actualiza el estado visual del TextField
                 viewModel.searchClan(nuevoTexto) // Ejecuta la búsqueda en la API
             }
         )
 
+        // LISTA
         if (clans != emptyList<ClanDomain>()) {
             ClanListComponent(clans = clans, navigateToDetail = navigateToDetail)
 

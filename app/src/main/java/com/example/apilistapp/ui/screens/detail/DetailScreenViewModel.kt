@@ -41,25 +41,14 @@ class DetailScreenViewModel : ViewModel() {
                 _isFavorite.value = favorites.any { it.tag == tag } //Cambiar por petición SQL}
             }
         }
+    }
 
-
-        fun getClanInfo(tag: String) {
-            _clanInfo.value = null
-            viewModelScope.launch(Dispatchers.IO) {
-                withContext(Dispatchers.Main) {
-                    val responseClan = repository.getClanInfo(tag)
-                    _clanInfo.value = responseClan
-                }
-            }
-        }
-
-        fun setClanInfoNull() {
-            _clanInfo.value = null
-        }
-
-        fun addToFavorites(clan: ClanDomain) {
-            viewModelScope.launch {
-                localRepository.saveAsFavorite(clan)
+    fun getClanInfo(tag: String) {
+        _clanInfo.value = null
+        viewModelScope.launch(Dispatchers.IO) {
+            val responseClan = repository.getClanInfo(tag)
+            withContext(Dispatchers.Main) {
+                _clanInfo.value = responseClan
             }
         }
     }

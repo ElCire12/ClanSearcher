@@ -10,6 +10,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
 
 @Composable
 fun SettingsScreen(settings: SettingsViewModel) {
@@ -44,7 +45,7 @@ fun SettingsScreen(settings: SettingsViewModel) {
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Bottom
         ) {
-            Button(onClick = {}) {
+            Button(onClick = { settings.deleteAllFavorites() }) {
                 Text("Delete Favs")
             }
         }

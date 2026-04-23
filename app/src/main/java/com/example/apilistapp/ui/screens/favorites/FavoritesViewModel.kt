@@ -10,8 +10,9 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
-class FavoritesViewModel: ViewModel() {
+class FavoritesViewModel : ViewModel() {
 
     private val repository = FavoriteRepository()
     private val _favorites = MutableStateFlow<List<ClanDomain>>(emptyList())
@@ -22,7 +23,9 @@ class FavoritesViewModel: ViewModel() {
         // Ejecutamos en una corrutina porque el acceso a datos puede tardar
         viewModelScope.launch(Dispatchers.IO) {
             val list = repository.getFavorites()
-            _favorites.value = list
+            withContext(Dispatchers.Main) {
+                _favorites.value = list
+            }
         }
     }
 }
