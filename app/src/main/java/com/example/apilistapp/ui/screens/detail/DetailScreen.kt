@@ -70,7 +70,7 @@ fun DetailScreen(
 
     // Usamos un Box para manejar el estado de carga o el contenido principal
     // El padding ya viene aplicado desde el NavigationWrapper (innerPadding)
-    Box(modifier = Modifier.fillMaxSize()) {
+    Box(modifier = Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background)) {
         val clanInfo =
             clanInfo //Copia de claninfo para evitar que clan info original se convierta en null en medio del pintado de este box
 
@@ -93,14 +93,16 @@ fun DetailScreen(
                             IconButton(onClick = navigateBack) {
                                 Icon(
                                     Icons.AutoMirrored.Filled.ArrowBack,
-                                    contentDescription = "Volver"
+                                    contentDescription = "Volver",
+                                    tint = MaterialTheme.colorScheme.onBackground
                                 )
                             }
 
                             IconButton(onClick = { viewModel.toggleFavorite(clanInfo!!) }) {
                                 Icon(
                                     imageVector = if (isFavorite) Icons.Outlined.BookmarkAdded else Icons.Outlined.BookmarkAdd,
-                                    contentDescription = "Guardar Clan"
+                                    contentDescription = "Guardar Clan",
+                                    tint = if (isFavorite) Color(0xFFEAB308) else MaterialTheme.colorScheme.onBackground
                                 )
                             }
                         }
@@ -113,12 +115,13 @@ fun DetailScreen(
                                 Text(
                                     text = clanInfo.name.replace("\"", ""),
                                     style = MaterialTheme.typography.headlineMedium,
-                                    fontWeight = FontWeight.ExtraBold
+                                    fontWeight = FontWeight.ExtraBold,
+                                    color = MaterialTheme.colorScheme.onBackground
                                 )
                                 Text(
                                     text = clanInfo.tag,
                                     style = MaterialTheme.typography.bodyLarge,
-                                    color = Color.Gray
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant
                                 )
                             }
                         }
@@ -128,15 +131,16 @@ fun DetailScreen(
                 // Descripción del Clan
                 item {
                     Card(
-                        colors = CardDefaults.cardColors(containerColor = Color(0xFFF8FAFC)),
+                        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),
                         shape = RoundedCornerShape(12.dp),
-                        border = BorderStroke(1.dp, Color(0xFFE2E8F0))
+                        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant)
                     ) {
                         Text(
                             text = clanInfo.description ?: "No hay descripción disponible",
                             modifier = Modifier.padding(16.dp),
                             style = MaterialTheme.typography.bodyMedium,
-                            lineHeight = 20.sp
+                            lineHeight = 20.sp,
+                            color = MaterialTheme.colorScheme.onSurface
                         )
                     }
                 }
@@ -192,7 +196,8 @@ fun DetailScreen(
                         Text(
                             "Miembros (${clanInfo.members}/50)",
                             style = MaterialTheme.typography.titleLarge,
-                            fontWeight = FontWeight.Bold
+                            fontWeight = FontWeight.Bold,
+                            color = MaterialTheme.colorScheme.onBackground
                         )
 
                         // Leyenda de las flechas
@@ -205,7 +210,7 @@ fun DetailScreen(
                                 Text(
                                     "Donaciones",
                                     style = MaterialTheme.typography.labelSmall,
-                                    color = Color.Gray
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant
                                 )
                                 Icon(
                                     imageVector = Icons.Default.ArrowUpward, // O usa el texto "▲" para ser fiel al diseño
@@ -219,7 +224,7 @@ fun DetailScreen(
                                 Text(
                                     "Recib.",
                                     style = MaterialTheme.typography.labelSmall,
-                                    color = Color.Gray
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant
                                 )
                                 Icon(
                                     imageVector = Icons.Default.ArrowDownward, // O usa el texto "▼"
@@ -245,18 +250,19 @@ fun DetailScreen(
 fun StatCard(modifier: Modifier, icon: ImageVector, label: String, value: String, color: Color) {
     Card(
         modifier = modifier,
-        colors = CardDefaults.cardColors(containerColor = Color.White),
-        border = BorderStroke(1.dp, Color(0xFFF1F5F9))
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant)
     ) {
         Row(Modifier.padding(12.dp), verticalAlignment = Alignment.CenterVertically) {
             Icon(icon, null, tint = color, modifier = Modifier.size(24.dp))
             Spacer(Modifier.width(8.dp))
             Column {
-                Text(label, style = MaterialTheme.typography.labelSmall, color = Color.Gray)
+                Text(label, style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                 Text(
                     value,
                     style = MaterialTheme.typography.titleMedium,
-                    fontWeight = FontWeight.Bold
+                    fontWeight = FontWeight.Bold,
+                    color = MaterialTheme.colorScheme.onSurface
                 )
             }
         }
@@ -267,30 +273,30 @@ fun StatCard(modifier: Modifier, icon: ImageVector, label: String, value: String
 fun MemberItem(member: MemberDomain, rank: Int) {
     Card(
         modifier = Modifier.fillMaxWidth(),
-        colors = CardDefaults.cardColors(containerColor = Color.White),
-        border = BorderStroke(1.dp, Color(0xFFF1F5F9))
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant)
     ) {
         Row(Modifier.padding(12.dp), verticalAlignment = Alignment.CenterVertically) {
             Text(
                 rank.toString(),
                 Modifier.width(30.dp),
                 fontWeight = FontWeight.Bold,
-                color = Color.LightGray,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 fontSize = 14.sp
             )
             Column(Modifier.weight(1f)) {
                 Row( verticalAlignment = Alignment.CenterVertically,  horizontalArrangement = Arrangement.spacedBy(7.dp)) {
-                    Text(member.name, fontWeight = FontWeight.Bold, fontSize = 15.sp)
+                    Text(member.name, fontWeight = FontWeight.Bold, fontSize = 15.sp, color = MaterialTheme.colorScheme.onSurface)
                     Text(
                         text = member.tag,
                         style = MaterialTheme.typography.labelMedium,
-                        color = Color.Gray
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                 }
                 Text(
                     text = member.role.replaceFirstChar { it.uppercase() },
                     style = MaterialTheme.typography.labelMedium,
-                    color = Color.Gray
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
             Column(horizontalAlignment = Alignment.End) {
@@ -316,14 +322,15 @@ fun ClanLogo(
     imageUrl: String?,
     modifier: Modifier = Modifier,
     size: Dp = 80.dp,
-    backgroundColor: Color = Color(0xFFF1F5F9),
+    backgroundColor: Color? = null,
     innerPadding: Dp = 10.dp
 ) {
+    val finalBackgroundColor = backgroundColor ?: MaterialTheme.colorScheme.surfaceVariant
     Box(
         modifier = modifier
             .size(size)
             .clip(CircleShape)
-            .background(backgroundColor),
+            .background(finalBackgroundColor),
         contentAlignment = Alignment.Center
     ) {
         AsyncImage(

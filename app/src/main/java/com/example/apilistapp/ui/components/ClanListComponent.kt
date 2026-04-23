@@ -42,9 +42,8 @@ fun ClanListComponent(
     clans: List<ClanDomain>,
     navigateToDetail: (String) -> Unit
 ) {
-    // Lista de Clanes
     LazyColumn(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background),
         contentPadding = PaddingValues(16.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
@@ -63,9 +62,9 @@ fun ClanItem(clan: ClanDomain, navigateToDetail: (String) -> Unit) {
         modifier = Modifier
             .fillMaxWidth()
             .clickable { navigateToDetail(clan.tag) },
-        colors = CardDefaults.cardColors(containerColor = Color.White),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
         shape = RoundedCornerShape(16.dp),
-        border = BorderStroke(1.dp, Color(0xFFE2E8F0))
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant)
     ) {
         Row(
             modifier = Modifier
@@ -73,17 +72,16 @@ fun ClanItem(clan: ClanDomain, navigateToDetail: (String) -> Unit) {
                 .fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            // Logo circular pequeño
             Box(
                 modifier = Modifier
                     .size(60.dp)
                     .clip(CircleShape)
-                    .background(Color(0xFFF1F5F9)),
+                    .background(MaterialTheme.colorScheme.surfaceVariant),
                 contentAlignment = Alignment.Center
             ) {
                 AsyncImage(
                     model = clan.logoUrlLarge,
-                    contentDescription = "Logo de ${clan.name}", // Mejorada la accesibilidad
+                    contentDescription = "Logo de ${clan.name}",
                     modifier = Modifier.size(45.dp),
                     contentScale = ContentScale.Fit
                 )
@@ -97,15 +95,15 @@ fun ClanItem(clan: ClanDomain, navigateToDetail: (String) -> Unit) {
                     text = clan.name,
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Bold,
-                    color = Color(0xFF1E293B)
+                    color = MaterialTheme.colorScheme.onSurface
                 )
                 Text(
                     text = clan.tag,
                     fontSize = 13.sp,
-                    color = Color.Gray
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
-            //Indicador de nivel
+            
             Column(
                 horizontalAlignment = Alignment.End
             ) {
@@ -114,7 +112,7 @@ fun ClanItem(clan: ClanDomain, navigateToDetail: (String) -> Unit) {
                 ) {
                     Icon(
                         imageVector = Icons.Default.Star,
-                        contentDescription = "Nivel del clan", // Mejorada la accesibilidad
+                        contentDescription = "Nivel del clan",
                         tint = Color(0xFFEAB308),
                         modifier = Modifier.size(14.dp)
                     )
@@ -122,7 +120,8 @@ fun ClanItem(clan: ClanDomain, navigateToDetail: (String) -> Unit) {
                     Text(
                         text = "Nivel ${clan.clanLevel ?: 0}",
                         fontWeight = FontWeight.Bold,
-                        style = MaterialTheme.typography.labelMedium
+                        style = MaterialTheme.typography.labelMedium,
+                        color = MaterialTheme.colorScheme.onSurface
                     )
                 }
             }

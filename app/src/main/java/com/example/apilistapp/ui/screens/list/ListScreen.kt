@@ -3,6 +3,7 @@ package com.example.apilistapp.ui.screens.list
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -10,7 +11,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.apilistapp.domain.ClanDomain
@@ -34,17 +34,17 @@ fun ListScreen(settings: SettingsViewModel, navigateToDetail: (String) -> Unit) 
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(0xFFF8FAFC)) // Fondo Slate 50 (como en JS)
+            .background(MaterialTheme.colorScheme.background)
     ) {
 
         // HEADER
         SearchHeaderComponent(
             title = "Explorar Clanes",
-            query = text, // Usamos la variable 'text' que definimos arriba
+            query = text,
             placeholder = "Buscar por nombre...",
             onQueryChange = { nuevoTexto ->
-                text = nuevoTexto // Actualiza el estado visual del TextField
-                viewModel.searchClan(nuevoTexto) // Ejecuta la búsqueda en la API
+                text = nuevoTexto
+                viewModel.searchClan(nuevoTexto)
             }
         )
 
@@ -60,4 +60,3 @@ fun ListScreen(settings: SettingsViewModel, navigateToDetail: (String) -> Unit) 
         }
     }
 }
-
