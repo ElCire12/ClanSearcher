@@ -43,7 +43,7 @@ fun ClanGridComponent(
         }
     }
 }
-
+//
 @Composable
 fun ClanGridItem(clan: ClanDomain, onClick: () -> Unit) {
     Card(
