@@ -6,9 +6,10 @@ import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.ui.NavDisplay
 import com.example.apilistapp.ui.screens.detail.DetailScreen
 import com.example.apilistapp.ui.screens.list.ListScreen
+import com.example.apilistapp.ui.screens.settings.SettingsViewModel
 
 @Composable
-fun ListNavigation() {
+fun ListNavigation(settings: SettingsViewModel) {
     val listBackStack = rememberNavBackStack(ListNestedRoute.MainList)
 
     NavDisplay(
@@ -18,6 +19,7 @@ fun ListNavigation() {
 
             entry<ListNestedRoute.MainList> {
                 ListScreen(
+                    settings = settings,
                     navigateToDetail = { tagClicado ->
                         listBackStack.add(ListNestedRoute.Detail(tagClicado))
                     }

@@ -17,15 +17,17 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.apilistapp.ui.components.ClanGridComponent
 import com.example.apilistapp.ui.components.ClanListComponent
 import com.example.apilistapp.ui.components.SearchHeaderComponent
+import com.example.apilistapp.ui.screens.settings.SettingsViewModel
 
 @Composable
-fun FavoritesScreen(navigateToDetail: (String) -> Unit) {
+fun FavoritesScreen(settings: SettingsViewModel, navigateToDetail: (String) -> Unit) {
 
     val viewModel: FavoritesViewModel = viewModel()
     val favoriteClans by viewModel.favorites.collectAsStateWithLifecycle()
-
+    val isGridMode by settings.isGridMode.collectAsStateWithLifecycle()
 
     LaunchedEffect(Unit) {
         viewModel.loadFavorites()
@@ -46,6 +48,9 @@ fun FavoritesScreen(navigateToDetail: (String) -> Unit) {
 //            }
 //        )
 
-        ClanListComponent(favoriteClans, navigateToDetail = navigateToDetail)
+        if (isGridMode){
+            ClanGridComponent(favoriteClans, navigateToDetail = navigateToDetail)
+        }
+        else ClanListComponent(favoriteClans, navigateToDetail = navigateToDetail)
     }
 }

@@ -45,8 +45,8 @@ fun NavigationWrapper(settings: SettingsViewModel){
             modifier = Modifier.padding(innerPadding),
             onBack = { backStack.removeLastOrNull() },
             entryProvider = entryProvider {
-                entry<Route.ListScreen> { ListNavigation() }
-                entry<Route.FavoritesScreen> { FavoriteNavigation() }
+                entry<Route.ListScreen> { ListNavigation(settings) }
+                entry<Route.FavoritesScreen> { FavoriteNavigation(settings) }
                 entry<Route.SettingsScreen> { SettingsScreen(settings) }
             }
         )

@@ -13,4 +13,13 @@ class SettingsRepository(context: Context) {
     fun setDarkMode(enabled: Boolean) {
         settingsManager.saveSettingValue("dark_mode", enabled)
     }
+
+    // En SettingsRepository
+    fun isGridModeEnabled(): Boolean {
+        return settingsManager.getSettingValue("is_grid", false) // false por defecto (Lista)
+    }
+
+    fun setGridMode(enabled: Boolean) {
+        settingsManager.saveSettingValue("is_grid", enabled)
+    }
 }

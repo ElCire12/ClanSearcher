@@ -14,15 +14,18 @@ import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.apilistapp.domain.ClanDomain
+import com.example.apilistapp.ui.components.ClanGridComponent
 import com.example.apilistapp.ui.components.ClanListComponent
 import com.example.apilistapp.ui.components.LoadingComponent
 import com.example.apilistapp.ui.components.SearchHeaderComponent
+import com.example.apilistapp.ui.screens.settings.SettingsViewModel
 
 @Composable
-fun ListScreen(navigateToDetail: (String) -> Unit) {
+fun ListScreen(settings: SettingsViewModel, navigateToDetail: (String) -> Unit) {
     var text by remember { mutableStateOf("") }
     val viewModel: ClansListViewModel = viewModel()
     val clans by viewModel.clans.collectAsStateWithLifecycle()
+    val isGrid by settings.isGridMode.collectAsStateWithLifecycle()
 
     LaunchedEffect(Unit) {
         viewModel.getClansList()
@@ -47,7 +50,10 @@ fun ListScreen(navigateToDetail: (String) -> Unit) {
 
         // LISTA
         if (clans != emptyList<ClanDomain>()) {
-            ClanListComponent(clans = clans, navigateToDetail = navigateToDetail)
+            if (isGrid)
+                ClanGridComponent(clans = clans, navigateToDetail = navigateToDetail)
+            else
+                ClanListComponent(clans = clans, navigateToDetail = navigateToDetail)
 
         } else {
             LoadingComponent(message = "Obteniendo clanes...")

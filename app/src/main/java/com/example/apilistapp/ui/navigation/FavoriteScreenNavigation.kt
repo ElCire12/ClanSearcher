@@ -6,9 +6,10 @@ import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.ui.NavDisplay
 import com.example.apilistapp.ui.screens.detail.DetailScreen
 import com.example.apilistapp.ui.screens.favorites.FavoritesScreen
+import com.example.apilistapp.ui.screens.settings.SettingsViewModel
 
 @Composable
-fun FavoriteNavigation() {
+fun FavoriteNavigation(settings: SettingsViewModel) {
     val listBackStack = rememberNavBackStack(FavoriteNestedRoute.MainFavoriteList)
 
     NavDisplay(
@@ -18,6 +19,7 @@ fun FavoriteNavigation() {
 
             entry<FavoriteNestedRoute.MainFavoriteList> {
                 FavoritesScreen(
+                    settings = settings,
                     navigateToDetail = { tagClicado ->
                         listBackStack.add(FavoriteNestedRoute.FavoriteDetail(tagClicado))
                     }

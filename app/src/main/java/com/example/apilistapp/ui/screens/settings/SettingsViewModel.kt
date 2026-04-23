@@ -15,11 +15,19 @@ class SettingsViewModel(context: Context) : ViewModel() {
     private val _isDarkMode = MutableStateFlow<Boolean>(repository.isDarkModeEnabled())
     val isDarkMode: StateFlow<Boolean> = _isDarkMode
 
+    private val _isGridMode = MutableStateFlow<Boolean>(repository.isGridModeEnabled())
+    val isGridMode: StateFlow<Boolean> = _isGridMode
+
     private val localRepository = FavoriteRepository()
 
     fun themeToggle(enabled: Boolean) {
         repository.setDarkMode(enabled)
         _isDarkMode.value = enabled
+    }
+
+    fun onLayoutChanged(isGrid: Boolean) {
+        repository.setGridMode(isGrid)
+        _isGridMode.value = isGrid
     }
 
     fun deleteAllFavorites() {
