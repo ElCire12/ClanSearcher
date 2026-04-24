@@ -28,17 +28,6 @@ class ApiRepository {
         return clansList
     }
 
-//    suspend fun searchClan(name: String?): List<Clan> {
-//        val clansList: List<Clan>?
-//        val response = apiInterface.getClansList(name = name, limit = 10)
-//
-//        if (response.isSuccessful) {
-//            clansList = response.body()!!.clans.map { it.toDomain() }
-//        } else clansList = emptyList(); errorMessage(response)
-//
-//        return clansList
-//    }
-
     suspend fun getClanInfo(tag: String): Clan? {
         val clan: Clan?
         val response = apiInterface.getClanInfo(clanTag = tag)
