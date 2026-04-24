@@ -3,14 +3,23 @@ package com.example.apilistapp.data.repository
 import android.util.Log
 import com.example.apilistapp.data.mapper.toDomain
 import com.example.apilistapp.data.remote.ApiInterface
+import com.example.apilistapp.data.remote.dto.ClansList.ClansListDto
 import com.example.apilistapp.domain.Clan
 import retrofit2.Response
 
 class ApiRepository {
     val apiInterface = ApiInterface.create()
-    suspend fun getClans(): List<Clan> {
+    suspend fun getClans(name: String = "", limit: Int = 10, location: Int = 32000218): List<Clan> {
         val clansList: List<Clan>?
-        val response = apiInterface.getClansList(locationId = 32000218)
+        val response: Response<ClansListDto>
+
+        //Si no se busca nada obtener 50 de españa
+        if (name == ""){
+            response = apiInterface.getClansList(limit = 50, locationId = location)
+        }
+        else { //Si se busca algo obtener por el nombre, con un limite de 10
+            response = apiInterface.getClansList(name = name, limit = limit)
+        }
 
         if (response.isSuccessful) {
             clansList = response.body()!!.clans.map { it.toDomain() }
@@ -19,16 +28,16 @@ class ApiRepository {
         return clansList
     }
 
-    suspend fun searchClan(name: String?): List<Clan> {
-        val clansList: List<Clan>?
-        val response = apiInterface.getClansList(name = name, limit = 10)
-
-        if (response.isSuccessful) {
-            clansList = response.body()!!.clans.map { it.toDomain() }
-        } else clansList = emptyList(); errorMessage(response)
-
-        return clansList
-    }
+//    suspend fun searchClan(name: String?): List<Clan> {
+//        val clansList: List<Clan>?
+//        val response = apiInterface.getClansList(name = name, limit = 10)
+//
+//        if (response.isSuccessful) {
+//            clansList = response.body()!!.clans.map { it.toDomain() }
+//        } else clansList = emptyList(); errorMessage(response)
+//
+//        return clansList
+//    }
 
     suspend fun getClanInfo(tag: String): Clan? {
         val clan: Clan?

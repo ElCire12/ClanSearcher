@@ -26,13 +26,8 @@ class ClansListViewModel : ViewModel() {
 
     fun searchClan(name: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            val responseList: List<Clan>
 
-            if (name == "") {
-                responseList = apiRepository.getClans()
-            } else {
-                responseList = apiRepository.searchClan(name)
-            }
+            val responseList: List<Clan> = apiRepository.getClans(name)
 
             withContext(Dispatchers.Main) {
                 _clans.value = responseList
