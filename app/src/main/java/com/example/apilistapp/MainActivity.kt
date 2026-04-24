@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.getValue
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.apilistapp.ui.navigation.NavigationWrapper
 import com.example.apilistapp.ui.screens.settings.SettingsViewModel
@@ -12,6 +13,7 @@ import com.example.apilistapp.ui.theme.APIListAppTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
+        installSplashScreen()
         super.onCreate(savedInstanceState)
 
         val settingsVM = SettingsViewModel(this)
