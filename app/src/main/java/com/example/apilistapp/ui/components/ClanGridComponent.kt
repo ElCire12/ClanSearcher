@@ -10,7 +10,7 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.apilistapp.domain.ClanDomain
+import com.example.apilistapp.domain.Clan
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -19,7 +19,6 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -28,7 +27,7 @@ import coil.compose.AsyncImage
 
 @Composable
 fun ClanGridComponent(
-    clans: List<ClanDomain>,
+    clans: List<Clan>,
     navigateToDetail: (String) -> Unit
 ) {
     LazyVerticalGrid(
@@ -45,7 +44,7 @@ fun ClanGridComponent(
 }
 //
 @Composable
-fun ClanGridItem(clan: ClanDomain, onClick: () -> Unit) {
+fun ClanGridItem(clan: Clan, onClick: () -> Unit) {
     Card(
         modifier = Modifier
             .fillMaxWidth()

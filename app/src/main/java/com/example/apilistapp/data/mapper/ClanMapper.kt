@@ -4,13 +4,13 @@ import MemberDto
 import com.example.apilistapp.data.local.entity.ClanEntity
 import com.example.apilistapp.data.remote.dto.ClanInfo.ClanInfoDto
 import com.example.apilistapp.data.remote.dto.ClansList.ClanListItem
-import com.example.apilistapp.domain.ClanDomain
-import com.example.apilistapp.domain.MemberDomain
+import com.example.apilistapp.domain.Clan
+import com.example.apilistapp.domain.Member
 
 // CLANS MAPPER
 //ClanInfo o ClanDomain
-fun ClanInfoDto.toDomain(): ClanDomain {
-    return ClanDomain(
+fun ClanInfoDto.toDomain(): Clan {
+    return Clan(
         logoUrlLarge = badgeUrls.large,
         logoUrlSmall = badgeUrls.small,
         clanLevel = clanLevel,
@@ -27,8 +27,8 @@ fun ClanInfoDto.toDomain(): ClanDomain {
 }
 
 //ListItem to ClanDomain
-fun ClanListItem.toDomain(): ClanDomain {
-    return ClanDomain(
+fun ClanListItem.toDomain(): Clan {
+    return Clan(
         logoUrlLarge = badgeUrls.large,
         logoUrlSmall = badgeUrls.small,
         clanLevel = clanLevel,
@@ -45,7 +45,7 @@ fun ClanListItem.toDomain(): ClanDomain {
 }
 
 // ClanDomain to Entity (DB)
-fun ClanDomain.toEntity(): ClanEntity {
+fun Clan.toEntity(): ClanEntity {
     return ClanEntity(
         tag = tag,
         logoUrlLarge = logoUrlLarge,
@@ -62,8 +62,8 @@ fun ClanDomain.toEntity(): ClanEntity {
     )
 }
 
-fun ClanEntity.toDomain(): ClanDomain {
-    return ClanDomain(
+fun ClanEntity.toDomain(): Clan {
+    return Clan(
         tag = tag,
         logoUrlLarge = logoUrlLarge,
         logoUrlSmall = logoUrlSmall,
@@ -80,8 +80,8 @@ fun ClanEntity.toDomain(): ClanDomain {
 }
 
 // Member mapper
-fun MemberDto.toDomain(): MemberDomain {
-    return MemberDomain(
+fun MemberDto.toDomain(): Member {
+    return Member(
         builderBaseTrophies = builderBaseTrophies,
         clanRank = clanRank,
         donations = donations,

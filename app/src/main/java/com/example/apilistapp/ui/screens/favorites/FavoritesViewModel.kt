@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 
 import com.example.apilistapp.data.repository.FavoriteRepository
-import com.example.apilistapp.domain.ClanDomain
+import com.example.apilistapp.domain.Clan
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -15,8 +15,8 @@ import kotlinx.coroutines.withContext
 class FavoritesViewModel : ViewModel() {
 
     private val repository = FavoriteRepository()
-    private val _favorites = MutableStateFlow<List<ClanDomain>>(emptyList())
-    val favorites: StateFlow<List<ClanDomain>> = _favorites.asStateFlow()
+    private val _favorites = MutableStateFlow<List<Clan>>(emptyList())
+    val favorites: StateFlow<List<Clan>> = _favorites.asStateFlow()
 
     fun loadFavorites() {
         // Ejecutamos en una corrutina porque el acceso a datos puede tardar

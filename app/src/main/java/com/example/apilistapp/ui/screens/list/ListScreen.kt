@@ -13,7 +13,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.apilistapp.domain.ClanDomain
+import com.example.apilistapp.domain.Clan
 import com.example.apilistapp.ui.components.ClanGridComponent
 import com.example.apilistapp.ui.components.ClanListComponent
 import com.example.apilistapp.ui.components.LoadingComponent
@@ -49,7 +49,7 @@ fun ListScreen(settings: SettingsViewModel, navigateToDetail: (String) -> Unit) 
         )
 
         // LISTA
-        if (clans != emptyList<ClanDomain>()) {
+        if (clans != emptyList<Clan>()) {
             if (isGrid)
                 ClanGridComponent(clans = clans, navigateToDetail = navigateToDetail)
             else

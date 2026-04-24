@@ -1,7 +1,7 @@
 package com.example.apilistapp.domain
 
 
-data class MemberDomain(
+data class Member(
     val builderBaseTrophies: Int,
     val clanRank: Int,
     val donations: Int,

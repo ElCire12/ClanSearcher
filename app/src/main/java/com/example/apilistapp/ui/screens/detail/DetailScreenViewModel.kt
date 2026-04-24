@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.apilistapp.data.repository.ApiRepository
 import com.example.apilistapp.data.repository.FavoriteRepository
-import com.example.apilistapp.domain.ClanDomain
+import com.example.apilistapp.domain.Clan
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -15,13 +15,13 @@ import kotlinx.coroutines.withContext
 class DetailScreenViewModel : ViewModel() {
     private val repository = ApiRepository()
     private val localRepository = FavoriteRepository()
-    private val _clanInfo = MutableStateFlow<ClanDomain?>(null)
-    val clanInfo: StateFlow<ClanDomain?> = _clanInfo.asStateFlow()
+    private val _clanInfo = MutableStateFlow<Clan?>(null)
+    val clanInfo: StateFlow<Clan?> = _clanInfo.asStateFlow()
 
     private val _isFavorite = MutableStateFlow(false)
     val isFavorite: StateFlow<Boolean> = _isFavorite.asStateFlow()
 
-    fun toggleFavorite(clan: ClanDomain) {
+    fun toggleFavorite(clan: Clan) {
         viewModelScope.launch(Dispatchers.IO) {
             if (_isFavorite.value) {
                 localRepository.deleteFavorite(clan)

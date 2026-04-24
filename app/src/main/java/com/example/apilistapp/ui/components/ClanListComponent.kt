@@ -35,11 +35,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
-import com.example.apilistapp.domain.ClanDomain
+import com.example.apilistapp.domain.Clan
 
 @Composable
 fun ClanListComponent(
-    clans: List<ClanDomain>,
+    clans: List<Clan>,
     navigateToDetail: (String) -> Unit
 ) {
     LazyColumn(
@@ -57,7 +57,7 @@ fun ClanListComponent(
 }
 
 @Composable
-fun ClanItem(clan: ClanDomain, navigateToDetail: (String) -> Unit) {
+fun ClanItem(clan: Clan, navigateToDetail: (String) -> Unit) {
     Card(
         modifier = Modifier
             .fillMaxWidth()

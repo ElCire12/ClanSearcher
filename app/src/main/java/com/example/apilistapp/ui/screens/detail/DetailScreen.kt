@@ -2,7 +2,6 @@ package com.example.apilistapp.ui.screens.detail
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -51,7 +50,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 
 import coil.compose.AsyncImage
-import com.example.apilistapp.domain.MemberDomain
+import com.example.apilistapp.domain.Member
 import com.example.apilistapp.ui.components.LoadingComponent
 
 @Composable
@@ -268,7 +267,7 @@ fun StatCard(modifier: Modifier, icon: ImageVector, label: String, value: String
 }
 
 @Composable
-fun MemberItem(member: MemberDomain, rank: Int) {
+fun MemberItem(member: Member, rank: Int) {
     Card(
         modifier = Modifier.fillMaxWidth(),
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),

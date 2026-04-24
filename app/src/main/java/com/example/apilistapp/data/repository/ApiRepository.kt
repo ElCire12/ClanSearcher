@@ -3,13 +3,13 @@ package com.example.apilistapp.data.repository
 import android.util.Log
 import com.example.apilistapp.data.mapper.toDomain
 import com.example.apilistapp.data.remote.ApiInterface
-import com.example.apilistapp.domain.ClanDomain
+import com.example.apilistapp.domain.Clan
 import retrofit2.Response
 
 class ApiRepository {
     val apiInterface = ApiInterface.create()
-    suspend fun getClans(): List<ClanDomain> {
-        val clansList: List<ClanDomain>?
+    suspend fun getClans(): List<Clan> {
+        val clansList: List<Clan>?
         val response = apiInterface.getClansList(locationId = 32000218)
 
         if (response.isSuccessful) {
@@ -19,8 +19,8 @@ class ApiRepository {
         return clansList
     }
 
-    suspend fun searchClan(name: String?): List<ClanDomain> {
-        val clansList: List<ClanDomain>?
+    suspend fun searchClan(name: String?): List<Clan> {
+        val clansList: List<Clan>?
         val response = apiInterface.getClansList(name = name, limit = 10)
 
         if (response.isSuccessful) {
@@ -30,8 +30,8 @@ class ApiRepository {
         return clansList
     }
 
-    suspend fun getClanInfo(tag: String): ClanDomain? {
-        val clan: ClanDomain?
+    suspend fun getClanInfo(tag: String): Clan? {
+        val clan: Clan?
         val response = apiInterface.getClanInfo(clanTag = tag)
 
         if (response.isSuccessful) {
