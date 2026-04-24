@@ -18,11 +18,20 @@ class FavoritesViewModel : ViewModel() {
     private val _favorites = MutableStateFlow<List<ClanDomain>>(emptyList())
     val favorites: StateFlow<List<ClanDomain>> = _favorites.asStateFlow()
 
-
     fun loadFavorites() {
         // Ejecutamos en una corrutina porque el acceso a datos puede tardar
         viewModelScope.launch(Dispatchers.IO) {
             val list = repository.getFavorites()
+            withContext(Dispatchers.Main) {
+                _favorites.value = list
+            }
+        }
+    }
+
+    fun searchFavorite(tag: String) {
+        // Ejecutamos en una corrutina porque el acceso a datos puede tardar
+        viewModelScope.launch(Dispatchers.IO) {
+            val list = repository.searchByName(tag)
             withContext(Dispatchers.Main) {
                 _favorites.value = list
             }

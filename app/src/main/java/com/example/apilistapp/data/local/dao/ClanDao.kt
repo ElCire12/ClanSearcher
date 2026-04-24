@@ -13,7 +13,10 @@ interface ClanDao {
     suspend fun getAllCharacters(): MutableList<ClanEntity>
 
     @Query("SELECT * FROM favorites WHERE tag = :tag")
-    suspend fun getCharacterById(tag: Int): ClanEntity
+    suspend fun getCharacterByTag(tag: String): ClanEntity?
+
+    @Query("SELECT * FROM favorites WHERE name LIKE :name || '%'")
+    suspend fun searchByName(name: String): List<ClanEntity>?
 
     @Insert
     suspend fun addCharacter(clan: ClanEntity)

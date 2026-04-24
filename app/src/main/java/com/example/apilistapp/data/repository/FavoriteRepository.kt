@@ -12,7 +12,9 @@ class FavoriteRepository {
 
     suspend fun deleteAllFavorites() = daoInterface.deleteAllClans()
 
-    suspend fun isFavorite(characterId: Int) = daoInterface.getCharacterById(characterId).toDomain()
+    suspend fun searchByName(tag: String): List<ClanDomain> = daoInterface.searchByName(tag)?.map { it.toDomain() } ?: emptyList()
+
+    suspend fun isFavorite(tag: String) = daoInterface.getCharacterByTag(tag) != null
 
     suspend fun getFavorites(): MutableList<ClanDomain> {
         val favoritesList = mutableListOf<ClanDomain>()

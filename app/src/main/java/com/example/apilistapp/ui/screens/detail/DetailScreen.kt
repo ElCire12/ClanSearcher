@@ -68,8 +68,6 @@ fun DetailScreen(
         viewModel.checkIsFavorite(clanTag)
     }
 
-    // Usamos un Box para manejar el estado de carga o el contenido principal
-    // El padding ya viene aplicado desde el NavigationWrapper (innerPadding)
     Box(modifier = Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background)) {
         val clanInfo =
             clanInfo //Copia de claninfo para evitar que clan info original se convierta en null en medio del pintado de este box

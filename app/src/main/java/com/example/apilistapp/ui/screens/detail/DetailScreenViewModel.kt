@@ -35,10 +35,11 @@ class DetailScreenViewModel : ViewModel() {
     }
 
     fun checkIsFavorite(tag: String) {
-        viewModelScope.launch {
-            val favorites = localRepository.getFavorites() //Esto carga to.do en memoria
+        viewModelScope.launch(Dispatchers.IO) {
+            val searchResult = localRepository.isFavorite(tag)
+
             withContext(Dispatchers.Main) {
-                _isFavorite.value = favorites.any { it.tag == tag } //Cambiar por petición SQL}
+                _isFavorite.value = searchResult
             }
         }
     }
