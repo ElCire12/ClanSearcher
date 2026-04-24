@@ -85,7 +85,7 @@ fun ClanGridItem(clan: Clan, onClick: () -> Unit) {
                 )
 
                 Text(
-                    text = "ID: ${clan.tag}",
+                    text = "Tag: ${clan.tag}",
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     maxLines = 1
