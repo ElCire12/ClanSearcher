@@ -22,4 +22,13 @@ class SettingsRepository(context: Context) {
     fun setGridMode(enabled: Boolean) {
         settingsManager.saveSettingValue("is_grid", enabled)
     }
+
+
+    fun getApiKey(): String {
+        return settingsManager.getSettingValue("api_key", "")
+    }
+
+    fun setApiKey(key: String) {
+        settingsManager.saveSettingValue("api_key", key)
+    }
 }

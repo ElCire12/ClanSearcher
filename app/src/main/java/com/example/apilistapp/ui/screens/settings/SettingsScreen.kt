@@ -1,15 +1,17 @@
 package com.example.apilistapp.ui.screens.settings
 
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Brightness4
-import androidx.compose.material.icons.filled.Delete
-import androidx.compose.material.icons.filled.GridView
+import androidx.compose.material.icons.automirrored.filled.OpenInNew
+import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -20,12 +22,14 @@ fun SettingsScreen(settings: SettingsViewModel) {
 
     val isDarkMode by settings.isDarkMode.collectAsStateWithLifecycle()
     val isGridMode by settings.isGridMode.collectAsStateWithLifecycle()
+    val apiKey by settings.apiKey.collectAsStateWithLifecycle()
 
     var selectedText by remember { mutableStateOf(if (isGridMode) "Grid" else "List") }
     var gridDropDownExpanded by remember { mutableStateOf(false) }
     val gridOptions = listOf("List", "Grid")
 
     var showDeleteDialog by remember { mutableStateOf(false) }
+    val context = LocalContext.current
 
     Surface(
         modifier = Modifier.fillMaxSize(),
@@ -78,6 +82,49 @@ fun SettingsScreen(settings: SettingsViewModel) {
                             )
                         }
                     )
+                }
+            }
+
+            Spacer(modifier = Modifier.height(24.dp))
+
+            // GRUPO API
+            Text(
+                text = "Configuración de API",
+                style = MaterialTheme.typography.labelLarge,
+                color = MaterialTheme.colorScheme.primary,
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier.padding(bottom = 8.dp)
+            )
+
+            Card(
+                colors = CardDefaults.cardColors(
+                    containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.3f)
+                )
+            ) {
+                Column(modifier = Modifier.padding(16.dp)) {
+                    OutlinedTextField(
+                        value = apiKey,
+                        onValueChange = { settings.onApiKeyChanged(it) },
+                        label = { Text("API Key de Supercell") },
+                        modifier = Modifier.fillMaxWidth(),
+                        singleLine = true,
+                        leadingIcon = { Icon(Icons.Default.VpnKey, contentDescription = null) }
+                    )
+                    
+                    Spacer(modifier = Modifier.height(12.dp))
+                    
+                    Button(
+                        onClick = {
+                            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://developer.clashofclans.com/#/login"))
+                            context.startActivity(intent)
+                        },
+                        modifier = Modifier.fillMaxWidth(),
+                        shape = MaterialTheme.shapes.medium
+                    ) {
+                        Icon(Icons.AutoMirrored.Filled.OpenInNew, contentDescription = null)
+                        Spacer(Modifier.width(8.dp))
+                        Text("Obtener mi API Key")
+                    }
                 }
             }
 
