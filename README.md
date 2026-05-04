@@ -7,6 +7,8 @@
 
 **Clan Searcher** es una aplicación de Android que permite a los usuarios explorar el universo del videojuego **Clash of Clans**  utilizando la [API oficial](https://developer.clashofclans.com/#/) de Supercell. Los usuarios pueden buscar clanes, analizar sus estadísticas detalladas, consultar la lista de miembros y gestionar sus favoritos de forma local.
 
+[Descargar APK](https://github.com/ElCire12/ClanSearcher/releases/tag/clansearcher)
+
 ---
 
 ## 🚀 Características Principales
