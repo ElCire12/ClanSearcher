@@ -57,3 +57,13 @@ Este proyecto ha sido una pieza clave en mi formación como desarrollador:
 ---
 
 Desarrollado por [Èric Moral](https://github.com/ElCire12).
+
+## 📸 Screenshots
+
+<p align="center">
+  <img src="readmeImagenes/listaScreenWhite.jpg" width="180" alt="Lista Claro">
+  <img src="readmeImagenes/listaScreenBlack.jpg" width="180" alt="Lista Oscuro">
+  <img src="readmeImagenes/detailScreenWhite.jpg" width="180" alt="Detalles">
+  <img src="readmeImagenes/favoritesScreenBlack.jpg" width="180" alt="Favoritos">
+  <img src="readmeImagenes/settingsScreenBlack.jpg" width="180" alt="Ajustes">
+</p>
